@@ -56,7 +56,7 @@ func (app *application) scanCatUploadHandler(w http.ResponseWriter, r *http.Requ
 	cat := mux.Vars(r)["cat"]
 	if r.Method == "GET" {
 		tmpl, _ := template.ParseFiles("templates/target.html")
-		path := fmt.Sprintf("http://localhost:8000/scans/upload/%s", cat)
+		path := fmt.Sprintf("https://medilink.onrender.com/scans/upload/%s", cat)
 		fmt.Println(path)
 		tmpl.Execute(w, path)
 	} else {
