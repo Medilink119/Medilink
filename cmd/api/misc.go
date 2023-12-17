@@ -56,7 +56,7 @@ func (app *application) checkUser(handler http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		_, err := app.getUserFromCookie(r)
 		if err != nil {
-			http.Redirect(w, r, "http://localhost:8000/auth", http.StatusFound)
+			http.Redirect(w, r, "https://medilink.onrender.com/auth", http.StatusFound)
 			return
 		}
 		handler.ServeHTTP(w, r)
