@@ -85,6 +85,6 @@ func (app *application) scanCatUploadHandler(w http.ResponseWriter, r *http.Requ
 			}
 		}
 
-		http.Redirect(w, r, "http://localhost:8000/", http.StatusFound)
+		http.Redirect(w, r, "https://medilink.onrender.com/", http.StatusFound)
 	}
 }
