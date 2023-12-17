@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Windows Style Folder</title>
+  <style>
+    .folder-container {
+      display: flex;
+      align-items: left;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    .folder-icon {
+      width: 15vw;
+      height: 15vh;
+      border: 1px solid #2a3c52;
+      border-radius: 4px;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .folder-icon:before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 7px solid #2a3c52;
+    }
+
+    .folder-label {
+      padding-left: 0.2%;
+      color: #2a3c52;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+    {{ range $cat := .}}
+        <a href="/prescriptions/category/{{$cat}}">
+            <div class="folder-container">
+                <i class="fa fa-folder" class="folder-icon"></i>
+                <div class="folder-label">{{$cat}}</div>
+            </div>
+        </a>
+    {{ end }}
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/vitals.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>      
+    </style>
+</head>
+<body onload="ld()">
+    <form class="form">
+        <div class="header">Enter Your Vitals Here</div>
+        <div class="inputs">
+            <input placeholder="Height (in ft)" class="input" type="number" id="01">
+            <input placeholder="Weight (in kg)" class="input" type="number" id="02">
+            <input placeholder="Systolic Pressure " class="input" type="number" id="03">
+            <input placeholder="Diastolic Pressure" class="input" type="number" id="04">
+            <input placeholder="Pulse" class="input" type="number" id="05">
+            <input placeholder="Sugar Level" class="input" type="number" id="06">
+        </div>
+        <a href="http://localhost:8000/">
+            <button class="submit-btn">Submit</button>
+        </a>
+        </div>
+    </form>
+    <script>
+
+        function ld() { 
+            Swal.fire({
+                title: 'Have you been to the doctor since login?',
+                input: 'text',
+                inputPlaceholder: 'Type "Yes" or "No"',
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var lowerCaseInput = result.value ? result.value.toLowerCase() : '';
+    
+                    if (lowerCaseInput === 'yes') {
+                
+                        window.location.href = "http://localhost:8000/vitalsy";
+                    } else if (lowerCaseInput === 'no') {
+                
+                        window.location.href = "http://localhost:8000/";
+                    } else {
+                        alert('Invalid response. Please type "Yes" or "No".');
+                    }
+                }
+            });
+                    
+    }
+
+    </script>
+</body>
+</html>

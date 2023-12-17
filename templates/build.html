@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main page</title>
+    <link rel="stylesheet" href="static/build.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+</head>
+<body>
+    <header>
+    <div class="logo">
+        <h2>MEDILINK</h2>
+        <i class='bx bx-plus-medical bx-flip-vertical bx-tada' style='color:white' ></i>
+    </div>
+        <nav>
+            <a href="auth">login/signup</a>
+            <a href="contact">contact</a>
+            <div id="theme-icon"><i class='bx bxs-moon' style='color:white; cursor: pointer;'></i></div>
+        </nav>
+    </header>
+    <section>
+        <div class="container1">
+            <div class="container1-1">
+                <h3><span class="multiple-text"></span></h3>
+                <h1>Medilink</h1>
+                <p>Medilink is your health companion offering a wealth of information, from public prescriptions to diverse medical cases. Stay on top of your health with appointment alerts and experience the magic of our precise prescription generator, ensuring accurate and reliable medication recommendations, just like your doctor.</p>
+                <div class="social-media">
+                    <a href=""><i class='bx bxl-instagram'></i></a>
+                    <a href=""><i class='bx bxl-linkedin'></i></a>
+                    <a href=""><i class='bx bxl-github'></i></a>
+                </div>
+                <div class="buttons">
+                    <a href="auth"><button>GET-STARTED</button></a>
+                </div>
+            </div>
+            <div class="slider-container">
+                <div class="slider">
+                  <div class="slide slide1"><img src="static/media/doc.png" alt="Image 1"></div>
+                  <div class="slide slide3"><img src="static/media/doc3.png" alt="Image 3"></div>
+                  <div class="slide slide2"><img src="static/media/doc2.png" alt="Image 2"></div>
+                  
+                  <!-- Add more slides as needed -->
+                </div>
+              </div>
+        </div>
+    </section>
+    <script>
+        var icon = document.getElementById("theme-icon");
+        var body = document.body;
+        var iconElement = document.getElementById("theme-icon");
+        var logoIcon = document.querySelector(".logo i");
+        var imgElement = document.querySelector(".slide img");
+        icon.onclick = function () {
+            body.classList.toggle("dark-theme");
+
+            if (body.classList.contains("dark-theme")) {
+                iconElement.innerHTML = "<i class='bx bxs-sun' style='color:#190019'></i>";
+                logoIcon.style.color = "#190019";
+                imgElement.src = "media/doc2.png";
+            } else {
+                iconElement.innerHTML = "<i class='bx bxs-moon' style='color:white'></i>";
+                logoIcon.style.color = "#fbe4d8";
+                imgElement.src = "media/doc.png";
+            }   
+        };
+            document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.querySelector(".slider");
+            let currentIndex = 0;
+
+            function showSlide(index) {
+            const translateValue = -index * 100 + "%";
+            slider.style.transform = "translateX(" + translateValue + ")";
+            }
+
+            function nextSlide() {
+            currentIndex = (currentIndex + 1) % slider.children.length;
+            showSlide(currentIndex);
+            }
+
+            function prevSlide() {
+            currentIndex = (currentIndex - 1 + slider.children.length) % slider.children.length;
+            showSlide(currentIndex);
+            }
+
+            setInterval(nextSlide, 5000); 
+        });
+        
+    </script>
+    <script src="static/build.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</body>
+</html>

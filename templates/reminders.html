@@ -1,0 +1,351 @@
+<!-- reminders.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment and Medication Reminders - Medilink</title>
+    <link rel="stylesheet" href="instructions.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            font-size: large;
+        }
+
+        header {
+            background-color: #1c001c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-container {
+            flex: 1;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        form {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea,
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #1c001c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2d002d;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        li {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #1c001c;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+        }
+
+        /* Responsive styles */
+        @media only screen and (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-container {
+                margin-bottom: 20px;
+            }
+        }
+
+        
+    </style>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css">
+    <style>
+      
+      .add-todo-input,
+      .edit-todo-input {
+          outline: none;
+      }
+      
+      .add-todo-input:focus,
+      .edit-todo-input:focus {
+          border: none !important;
+          box-shadow: none !important;
+      }
+      
+      .view-opt-label,
+      .date-label {
+          font-size: 0.8rem;
+      }
+      
+      .edit-todo-input {
+          font-size: 1.7rem !important;
+      }
+      
+      .todo-actions {
+          visibility: hidden !important;
+      }
+      
+      .todo-item:hover .todo-actions {
+          visibility: visible !important;
+      }
+      
+      .todo-item.editing .todo-actions .edit-icon {
+          display: none !important;
+      }
+      </style>
+</head>
+<body>
+    <header>
+        <h2>APPOINTMENT AND MEDICATION REMINDERS</h2>
+        <i class='bx bx-alarm-add bx-flip-vertical bx-tada' style='color:white; font-size: 2em;'></i>
+    </header>
+    <section>
+        <div class="container">
+            <div class="form-container">
+                <form action="/reminders/set" method="post">
+                    <h2>Add New Appointment Reminder</h2>
+                    <label for="appointmentDate">Appointment Date:</label>
+                    <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+                    <label for="appointmentTime">Appointment Time:</label>
+                    <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+                    <label for="appointmentNote">Appointment Note:</label>
+                    <textarea id="appointmentNote" name="appointmentNote" rows="3"></textarea>
+
+                    <label for="patientEmail">Your Email:</label>
+                    <input type="email" id="patientEmail" name="patientEmail" required>
+
+                    <input type="submit" value="Add Remainder">
+                </form>
+
+                <ul id="appointmentList"></ul>
+            </div>
+
+            <div class="form-container">
+                <form id="medicationForm">
+                    <h2>Add New Medication Reminder</h2>
+                    <label for="medicationName">Medication Name:</label>
+                    <input type="text" id="medicationName" name="medicationName" required>
+
+                    <label for="dosage">Dosage:</label>
+                    <input type="text" id="dosage" name="dosage" required>
+
+                    <label for="frequency">Frequency (times per day):</label>
+                    <input type="number" id="frequency" name="frequency" min="1" required onchange="addMedicationTimesInputFields()">
+                    <!-- Dynamic input fields for medication times -->
+                    <div id="medicationTimesContainer"></div>
+
+                    <label for="medicationNote">Medication Note:</label>
+                    <textarea id="medicationNote" name="medicationNote" rows="3"></textarea>
+
+                    <label for="patientEmailMed">Your Email:</label>
+                    <input type="email" id="patientEmailMed" name="patientEmailMed" required>
+
+                    <button type="button" onclick="scheduleMedication()">Add Medication Reminder</button>
+                </form>
+
+                <ul id="medicationList"></ul>
+            </div>
+        </div>
+    </section>
+
+    <div style="line-height: 1.6;">
+        <div class="row mx-1 px-5 pb-3 w-80">
+            <div class="col mx-auto">
+                <!-- Todo Item 1 -->
+                <h2 style="padding-left: 4%;">Reminders: </h2>
+                {{ range $r := .}}
+                    <div class="row px-3 align-items-center todo-item rounded">
+                        <div class="col-auto m-1 p-0 d-flex align-items-center">
+                            <!-- <h2 class="m-0 p-0">
+                                <i class="fa fa-square-o text-primary btn m-0 p-0 d-none" data-toggle="tooltip" data-placement="bottom" title="Mark as complete"></i>
+                                <i class="fa fa-check-square-o text-primary btn m-0 p-0" data-toggle="tooltip" data-placement="bottom" title="Mark as todo"></i>
+                            </h2> -->
+                        </div>
+                        <div class="col px-1 m-1 d-flex align-items-center">
+                            <input type="text" class="form-control form-control-lg border-0 edit-todo-input bg-transparent rounded px-3" readonly value="{{ $r.Note }}" title="{{ $r.Note }}" />
+                            <input type="text" class="form-control form-control-lg border-0 edit-todo-input rounded px-3 d-none" value="{{$r.Note}}" />
+                        </div>
+                        <div class="col-auto m-1 p-0 px-3 d-none">
+                        </div>
+                        <div class="col-auto m-1 p-0 todo-actions">
+                            <div class="row d-flex align-items-center justify-content-end">
+                                <!-- <h5 class="m-0 p-0 px-2">
+                                    <i class="fa fa-pencil text-info btn m-0 p-0" data-toggle="tooltip" data-placement="bottom" title="Edit todo"></i>
+                                </h5> -->
+                                <!-- <h5 class="m-0 p-0 px-2">
+                                    <i class="fa fa-trash-o text-danger btn m-0 p-0" data-toggle="tooltip" data-placement="bottom" title="Delete todo"></i>
+                                </h5> -->
+                            </div>
+                            <div class="row todo-created-info">
+                                <div class="col-auto d-flex align-items-center pr-2">
+                                    <!-- <i class="fa fa-info-circle my-2 px-2 text-black-50 btn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Created date"></i> -->
+                                    <label class="date-label my-2 text-black-50">{{ $r.Appointment }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{ end }}
+            </div>  
+        </div>  
+    </div>
+
+    <!-- <footer>
+        &copy;MEDILINK 2023 ALL RIGHTS RESERVED
+    </footer> -->
+
+    <script>
+        function scheduleAppointment() {
+            var date = document.getElementById('appointmentDate').value;
+            var time = document.getElementById('appointmentTime').value;
+            var note = document.getElementById('appointmentNote').value;
+            var email = document.getElementById('patientEmail').value;
+
+            if (date && time && email) {
+                var appointmentList = document.getElementById('appointmentList');
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${date} ${time}</strong>: ${note}`;
+                appointmentList.appendChild(listItem);
+
+                // Schedule the appointment reminder on the server-side
+                scheduleServerAppointment(date, time, note, email);
+
+                // Clear the form fields
+                document.getElementById('appointmentDate').value = '';
+                document.getElementById('appointmentTime').value = '';
+                document.getElementById('appointmentNote').value = '';
+                document.getElementById('patientEmail').value = '';
+            }
+        }
+
+        function scheduleMedication() {
+            var medicationName = document.getElementById('medicationName').value;
+            var dosage = document.getElementById('dosage').value;
+            var frequency = document.getElementById('frequency').value;
+            var medNote = document.getElementById('medicationNote').value;
+            var emailMed = document.getElementById('patientEmailMed').value;
+
+            if (medicationName && dosage && frequency && emailMed) {
+                var medicationList = document.getElementById('medicationList');
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${medicationName} - ${dosage}</strong> (${frequency} times/day): ${medNote}`;
+                medicationList.appendChild(listItem);
+
+                // Schedule the medication reminder on the server-side
+                scheduleServerMedication(medicationName, dosage, frequency, medNote, emailMed);
+
+                // Clear the form fields
+                document.getElementById('medicationName').value = '';
+                document.getElementById('dosage').value = '';
+                document.getElementById('frequency').value = '';
+                document.getElementById('medicationNote').value = '';
+                document.getElementById('patientEmailMed').value = '';
+                document.getElementById('medicationTimesContainer').innerHTML = ''; // Clear the dynamic input fields
+            }
+        }
+
+        function addMedicationTimesInputFields() {
+            var frequency = document.getElementById('frequency').value;
+            var container = document.getElementById('medicationTimesContainer');
+            container.innerHTML = ''; // Clear previous input fields
+
+            if (frequency >= 1) {
+                var label = document.createElement('label');
+                label.innerHTML = 'Time:';
+                container.appendChild(label);
+
+                for (var i = 0; i < frequency; i++) {
+                    var input = document.createElement('input');
+                    input.type = 'time';
+                    input.name = 'medicationTime';
+                    input.required = true;
+                    container.appendChild(input);
+                }
+            }
+        }
+
+        function scheduleServerAppointment(date, time, note, email) {
+            // In a real-world scenario, you would send an AJAX request to the server to schedule the appointment reminder.
+            // Here, we'll just log the details for demonstration purposes.
+            console.log('Scheduled Appointment Reminder:');
+            console.log('Date:', date);
+            console.log('Time:', time);
+            console.log('Note:', note);
+            console.log('Email:', email);
+        }
+
+        function scheduleServerMedication(name, dosage, frequency, note, email) {
+            // In a real-world scenario, you would send an AJAX request to the server to schedule the medication reminder.
+            // Here, we'll just log the details for demonstration purposes.
+            console.log('Scheduled Medication Reminder:');
+            console.log('Medication:', name);
+            console.log('Dosage:', dosage);
+            console.log('Frequency:', frequency);
+            console.log('Note:', note);
+            console.log('Email:', email);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 20px 60px;
+      background-color: #f0f0f0;
+    }
+
+    .drop-container {
+      position: relative;
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      padding: 20px;
+      border-radius: 15px; 
+      border: 2px dashed #555;
+      color: #444;
+      cursor: pointer;
+      transition: background .2s ease-in-out, border .2s ease-in-out;
+    }
+
+    .drop-container:hover,
+    .drop-container.drag-active {
+      background: #eee;
+      border-color: #111;
+    }
+
+    .drop-container:hover .drop-title,
+    .drop-container.drag-active .drop-title {
+      color: #222;
+    }
+
+    .drop-title {
+      color: #444;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      transition: color .2s ease-in-out;
+    }
+
+    input[type=file] {
+      width: 350px;
+      max-width: 100%;
+      color: #444;
+      padding: 5px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #555;
+    }
+
+    input[type=file]::file-selector-button {
+      margin-right: 20px;
+      border: none;
+      background: #084cdf;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background .2s ease-in-out;
+    }
+
+    input[type=file]::file-selector-button:hover {
+      background: #0d45a5;
+    }
+
+    #fileList {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .fileItem {
+      flex: 0 0 calc(48% - 5px); 
+      box-sizing: border-box;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+      transition: transform 0.3s;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .fileItem:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 200px;
+      margin-bottom: 10px;
+      transition: filter .2s ease-in-out;
+    }
+
+    .fileName {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .actionButtons {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      display: none;
+    }
+
+    .fileItem:hover .actionButtons {
+      display: flex;
+    }
+
+    .deleteButton,
+    .renameButton {
+      background-color: #ff6464;
+      color: #fff;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+      border-radius: 8px; 
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+      width: 60px; 
+    }
+
+    .sendButton {
+      background-color: #ff6464;
+      color: #fff;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+      border-radius: 8px; 
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+      width: 60px; 
+      border: 2px solid black; 
+      margin-top: 10px;
+    }
+
+    @media (max-width: 767px) {
+      .fileItem {
+        flex: 0 0 100%; 
+      }
+    }
+  </style>
+</head>
+<body>
+    <label for="images" class="drop-container" id="dropcontainer">
+      <span class="drop-title">Drop files here</span>
+      or
+      <input type="file" name="scans" id="images" accept=".jpg, .jpeg, .png, .pdf" onchange="handleFileUpload(event)" multiple>
+    </label>
+    <button class="sendButton" onclick="Send()">Submit</button>
+
+  <ul id="fileList"></ul>
+
+  <script>
+    const dropContainer = document.getElementById("dropcontainer");
+    const fileInput = document.getElementById("images");
+    const fileList = document.getElementById("fileList");
+    var opFiles = []; 
+
+    const existingFileNames = new Set();
+
+    dropContainer.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    }, false);
+
+    dropContainer.addEventListener("dragenter", () => {
+      dropContainer.classList.add("drag-active");
+    });
+
+    dropContainer.addEventListener("dragleave", () => {
+      dropContainer.classList.remove("drag-active");
+    });
+
+    dropContainer.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropContainer.classList.remove("drag-active");
+
+      const validFileTypes = [".jpg", ".jpeg", ".png", ".pdf"];
+      const droppedFiles = Array.from(e.dataTransfer.files);
+      
+      const invalidFiles = droppedFiles.filter(file => !validFileTypes.some(type => file.name.toLowerCase().endsWith(type)));
+      
+      if (invalidFiles.length > 0) {
+        alert("Invalid file type. Please only upload files with extensions: jpg, jpeg, png, pdf");
+        return;
+      }
+
+      // console.log(droppedFiles)
+      for (file of droppedFiles) { 
+       opFiles.push(file); 
+      }
+
+      displayFiles(droppedFiles);
+    });
+
+    function handleFileUpload(event) {
+      const validFileTypes = [".jpg", ".jpeg", ".png", ".pdf"];
+      const selectedFiles = Array.from(event.target.files);
+
+      
+      const invalidFiles = selectedFiles.filter(file => !validFileTypes.some(type => file.name.toLowerCase().endsWith(type)));
+      
+      if (invalidFiles.length > 0) {
+        alert("Invalid file type. Please only upload files with extensions: jpg, jpeg, png, pdf");
+        return;
+      }
+      
+      const fs = document.getElementById("images").files; 
+      for (const f of fs) { 
+        opFiles.push(f) 
+      }
+      displayFiles(selectedFiles);
+      fileInput.value = null;
+    }
+
+    function displayFiles(files) {
+      for (const file of files) {
+        let fileNameInput = prompt("Enter file name:", file.name);
+
+        if (fileNameInput === null) {
+          continue;
+        }
+
+        while (existingFileNames.has(fileNameInput.toLowerCase()) && fileNameInput.toLowerCase() !== file.name.toLowerCase()) {
+          fileNameInput = prompt("File with this name already exists. Please use a different file name:", file.name);
+          if (fileNameInput === null) {
+            continue;
+          }
+        }
+
+        existingFileNames.add(fileNameInput.toLowerCase());
+
+        const listItem = document.createElement('li');
+        listItem.classList.add('fileItem');
+
+        if (file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.onclick = function () {
+            window.open(img.src);
+          };
+          listItem.appendChild(img);
+
+          const actionButtons = document.createElement('div');
+          actionButtons.classList.add('actionButtons');
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('deleteButton');
+          deleteButton.textContent = 'Delete';
+          deleteButton.onclick = function () {
+            existingFileNames.delete(fileName.textContent.toLowerCase());
+            listItem.remove();
+          };
+          actionButtons.appendChild(deleteButton);
+
+          const renameButton = document.createElement('button');
+          renameButton.classList.add('renameButton');
+          renameButton.textContent = 'Rename';
+          renameButton.onclick = function () {
+            let newName = prompt("Enter new file name:", fileName.textContent);
+            if (newName !== null) {
+              while (existingFileNames.has(newName.toLowerCase()) && newName.toLowerCase() !== fileName.textContent.toLowerCase()) {
+                newName = prompt("File with this name already exists. Please use a different file name:", fileName.textContent);
+                if (newName === null) {
+                  return;
+                }
+              }
+
+              existingFileNames.delete(fileName.textContent.toLowerCase());
+              fileName.textContent = newName;
+              existingFileNames.add(newName.toLowerCase());
+            }
+          };
+          actionButtons.appendChild(renameButton);
+
+          listItem.appendChild(actionButtons);
+        } else if (file.type === 'application/pdf') {
+          const pdfLink = document.createElement('a');
+          pdfLink.href = URL.createObjectURL(file);
+          pdfLink.textContent = 'View PDF';
+          pdfLink.classList.add('pdfLink');
+          pdfLink.target = '_blank';
+          listItem.appendChild(pdfLink);
+        }
+
+        const fileName = document.createElement('div');
+        fileName.classList.add('fileName');
+        fileName.textContent = fileNameInput || file.name;
+        listItem.appendChild(fileName);
+
+        fileList.appendChild(listItem);
+      }
+    }
+
+    function Send() { 
+      const formdata = new FormData(); 
+      opFiles.forEach((file) => formdata.append("files[]", file))
+      const response = fetch("{{.}}", { 
+        method: "POST", 
+        body: formdata, 
+      });  
+      window.location.replace("http://localhost:8000/")
+    }
+
+  </script>
+</body>
+</html>

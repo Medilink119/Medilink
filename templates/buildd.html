@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main page</title>
+    <link rel="stylesheet" href="static/buildd.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+          .submit-btn {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: .75rem;
+            line-height: 1rem;
+            text-align: center;
+            padding: .75rem 1.5rem;
+            background-color: #1c001c;
+            border-radius: .5rem;
+            width: 90%;
+            outline: 0;
+            border: 0;
+            color: #fff;
+            margin: 10px;
+            align-items: center;
+            margin-left: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+
+        <div class="logo">
+            <h2><a style="text-decoration: none; color: var(--primary-color)" href="/">
+                MEDILINK
+            </a></h2>
+            <i class='bx bx-plus-medical bx-flip-vertical bx-tada' style='color:white' ></i>
+        </div>
+    <div class="corner">
+        
+        <label for="toggle-menu" class="hamburger" id="hamburger">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="close-btn" id="closeBtn" onclick="closeHamburger()" style="display: none;">&#10006;</span>
+        </label>
+        
+        <nav class="navbar" id="navbar">
+            <a href="/auth">Login/Register</a>
+            <a href="mailto:medilink@gmail.com"target="_blank">contact</a>
+            <div id="theme-icon"><i class='bx bxs-moon' style='color:white; cursor: pointer;position: relative;'></i></div>
+        </nav>
+    </div>    
+        
+    </header>
+    <section>
+        <div class="container1">
+            <div class="container1-1">
+                <h3><span class="multiple-text"></span></h3>
+                <h1>Medilink</h1>
+                <p>Medilink is your health companion offering a wealth of information, from public prescriptions to diverse medical cases. Stay on top of your health with appointment alerts and experience the magic of our precise prescription generator, ensuring accurate and reliable medication recommendations, just like your doctor.</p>
+                <div class="social-media">
+                    <a href=""><i class='bx bxl-instagram'></i></a>
+                    <a href=""><i class='bx bxl-linkedin'></i></a>
+                    <a href=""><i class='bx bxl-github'></i></a>
+                </div>
+                <div class="buttons">
+                    <a href="/auth"><button>GET STARTED</button></a>
+                </div>
+            </div>
+            <div class="slider-container">
+                <div class="slider">
+                  <div class="slide slide1"><img src="static/media/doc.png" alt="Image 1"></div>
+                  <div class="slide slide3"><img src="static/media/doc3.png" alt="Image 3"></div>
+                  <div class="slide slide2"><img src="static/media/doc2.png" alt="Image 2"></div>
+                  
+                  <!-- Add more slides as needed -->
+                </div>
+              </div>
+        </div>
+    </section>
+    <section class="section-2">
+        <center><h2>MEDIHUB</h2></center>
+        <div class="container2">
+            <div class="container2-1">
+                <video autoplay muted loop playsinline style="opacity:0.954;">
+                    <source src="static/media/black.mp4" type="video/mp4">
+                </video>
+                <div class="content">
+                    <span class="circle"></span>
+                    <h1>REPORTS/SCANS<i class='bx bx-upload bx-tada' ></i></h1>
+                    <p>"Effortlessly store and share diverse prescription records on Medilink for a comprehensive understanding of your medical history."</p>
+                    <div class="overlay">
+                        <a href="/scans"><h2><i class='bx bx-right-top-arrow-circle' ></h2></i>
+                        <div class="overlay1">
+                            <a href="/scans/upload">
+                                <button><span class="box">
+                                    Upload
+                                </span></button>
+                            </a>
+                            <a href="/scans">
+                                <button><span class="box">
+                                    View
+                                </span></button>
+                            </a>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container2-2">
+                <video autoplay muted loop playsinline style="opacity:0.9;">
+                    <source src="static/media/black2.mp4" type="video/mp4">
+                </video>
+                <div class="content">
+                    <span class="circle"></span>
+                    <h1>PRESCRIPTIONS<i class='bx bx-search bx-tada' ></i></h1>
+                    <p>"Streamline your health story: Easily upload, store, and share prescription records with Medilink."</p>
+                    <div class="overlay">
+                        <a href="/prescriptions"><h2><i class='bx bx-right-top-arrow-circle' ></i></h2>
+                        <div class="overlay1">
+                            <a href="/prescriptions/upload">
+                                <button><span class="box">
+                                    Upload
+                                </span></button>
+                            </a>
+                            <a href="/prescriptions">
+                                <button><span class="box">
+                                    View
+                                </span></button></a>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container3">
+            <div class="container3-1">
+                <video autoplay muted loop playsinline>
+                    <source src="static/media/black2.mp4" type="video/mp4">
+                </video>
+                <div class="content">
+                    <span class="circle"></span>
+                    <h1>REMINDER<i class='bx bxs-bell-ring bx-tada' ></i></h1>
+                    <p>"Timely doctor's appointments reminders, your personalized key to proactive wellness."</p>
+                    <div class="overlay">
+                        <a href="/reminders"><h2><i class='bx bx-right-top-arrow-circle' ></i></h2>
+                        <h2>visit now</h2></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container3-2">
+                <video autoplay muted loop playsinline>
+                    <source src="static/media/black.mp4" type="video/mp4">
+                </video>
+                <div class="content">
+                    <span class="circle"></span>
+                    <h1>PRESCRIPTION-GPT<i class='bx bx-cog bx-spin' ></i></h1>
+                    <p>"Revolutionizing healthcare with AI precision for your personalized prescription needs."</p>
+                    <div class="overlay">
+                        <a href="auth"><h2><i class='bx bx-right-top-arrow-circle' ></i></h2>
+                        <h2>visit now</h2></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <h2>medilink</h2>
+        <hr style="width: 95%;">
+        <table>
+            <tr>
+                <th>CONTACT:</th>
+                <th>ABOUT:</th>
+                <th>FOLLOW US ON:</th>
+            </tr>
+            <tr>
+                <td><a href="mailto:medilink@gmail.com"><p>EMAIL-US</p></a></td>
+                <td><a href="about-us/about.html" target="_blank"><p>DEVELOPERS</p></a></td>
+                <td><div class="social-media">
+                    <a href=""><i class='bx bxl-instagram'></i></a>
+                    <a href=""><i class='bx bxl-linkedin'></i></a>
+                    <a href=""><i class='bx bxl-github'></i></a>
+                </div></td>
+            </tr>
+            <tr>
+                <td><a href=""><p><a href="footer/help.html">HELP</a></p></td>
+                <td><a href=""><p><a href="footer/instructions.html">INSTRUCTIONS</a></p></a></td>
+                
+            </tr>
+        </table>
+        <h3 id="h3">&copy;MEDILINK 2023.ALL RIGHTS RESERVED.</h3>
+    </footer>
+    <script src="build.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</body>
+</html>

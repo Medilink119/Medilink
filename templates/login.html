@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>login page</title>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration Form </title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5" style="padding-top:0;">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+                        <div class="adjust">
+                        <div class="wrapper">
+                            <div class="form-wrapper sign-up">
+                                <form action="/register" method="post">
+                                    <h2>Sign Up</h2>
+                                    <div class="input-group">
+                                        <input type="text" name="username" required>
+                                        <label for="Name">Username</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="email" name="email" required>
+                                        <label for="Email">Email</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="password" name="password" required>
+                                        <label for="pswd">Password</label>
+                                    </div>
+                                    <button type="submit" class="btn">Sign Up</button>
+                                    
+                                </form>
+                            </div>
+
+                            <div class="form-wrapper sign-in">
+                                <!-- id='signin' -->
+                                <form action="/login" method="post">
+                                    <h2>Login</h2>
+                                    <div class="input-group">
+                                        <input type="text" name="email" required>
+                                        <label for="">Email</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="password" name="password" required>
+                                        <label for="">Password</label>
+                                    </div>
+                                    <div class="forgot-pass">
+                                        <a href="#">Forgot Password?</a>
+                                    </div>
+                                    <button type="submit" class="btn">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script src="static/script.js"></script>
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="static/script.js"></script>
+
+</body>
+</html>
+
+<!-- <script>
+    document.querySelector('.form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    Swal.fire({
+        title: 'Have you been to the doctor since login?',
+        input: 'text',
+        inputPlaceholder: 'Type "Yes" or "No"',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var lowerCaseInput = result.value ? result.value.toLowerCase() : '';
+
+            if (lowerCaseInput === 'yes') {
+           
+                window.location.href = 'reminders (1).html';
+            } else if (lowerCaseInput === 'no') {
+         
+                window.location.href = 'reminders (1).html';
+            } else {
+                alert('Invalid response. Please type "Yes" or "No".');
+            }
+        }
+    });
+});                
+</script> -->
