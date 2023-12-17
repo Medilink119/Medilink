@@ -43,7 +43,7 @@ func main() {
 	flag.IntVar(&cfg.port, "port", 8000, "Port number")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development | production)")
 
-	flag.StringVar(&cfg.db, "db", "postgres://postgres:root@localhost/tg?sslmode=disable", "Database Connection String")
+	flag.StringVar(&cfg.db, "db", "postgres://usermessages_k0v6_user:E7FQKLQ0MhPxlg4Syn8DnWWsMLwHQvVJ@dpg-cl7lsliuuipc73eij48g-a.singapore-postgres.render.com/usermessages_k0v6", "Database Connection String")
 
 	flag.StringVar(&cfg.smtp.host, "smtp-host", "smtp.gmail.com", "SMTP Host")
 	flag.IntVar(&cfg.smtp.port, "smtp-port", 2525, "SMTP Port")
