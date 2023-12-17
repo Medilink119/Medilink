@@ -35,7 +35,7 @@ func (app *application) prescriptionUploadHandler(w http.ResponseWriter, r *http
 			app.logger.Printf("Unable to locate form template: %v\n", err)
 			return
 		}
-		path := "http://localhost:8000/prescriptions/upload"
+		path := "https://medilink.onrender.com/prescriptions/upload"
 
 		tmpl.Execute(w, path)
 	} else {
